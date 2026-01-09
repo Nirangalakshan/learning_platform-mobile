@@ -123,3 +123,11 @@ export async function generateQuiz(
 
   return callApilaAI({ systemPrompt, userPrompt });
 }
+
+export async function quickChat(message: string): Promise<string> {
+  const systemPrompt =
+    "You are a helpful and knowledgeable academic assistant. Provide clear, concise, and accurate answers to user questions. Keep responses brief and helpful.";
+  const userPrompt = message;
+
+  return callApilaAI({ systemPrompt, userPrompt });
+}
