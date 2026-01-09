@@ -117,18 +117,60 @@ export default function StudyPlanGenerator() {
 
       {/* Results Area */}
       {result && (
-        <View className="mt-8 bg-gray-50 dark:bg-[#1a1a1a] rounded-xl p-4 border border-gray-200 dark:border-gray-800">
-          <View className="flex-row justify-between items-center mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-            <Text className="font-bold text-lg text-gray-900 dark:text-white">
-              Generated Study Plan
-            </Text>
-            <TouchableOpacity onPress={() => setResult(null)}>
-              <Ionicons name="close-circle" size={24} color="#9CA3AF" />
+        <View className="mt-8 bg-white dark:bg-[#1a1a1a] rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl shadow-indigo-100 dark:shadow-none">
+          <View className="bg-indigo-600 px-5 py-4 flex-row justify-between items-center">
+            <View className="flex-row items-center">
+              <View className="bg-white/20 p-2 rounded-lg mr-3">
+                <Ionicons name="sparkles" size={18} color="white" />
+              </View>
+              <Text className="font-bold text-white text-lg">
+                Your Study Plan
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => setResult(null)}
+              className="bg-white/10 p-1.5 rounded-full"
+            >
+              <Ionicons name="close" size={20} color="white" />
             </TouchableOpacity>
           </View>
-          <Text className="text-gray-800 dark:text-gray-200 leading-6">
-            {result}
-          </Text>
+
+          <View className="p-6">
+            <Text className="text-gray-800 dark:text-gray-200 leading-7 text-base mb-6">
+              {result}
+            </Text>
+
+            <View className="flex-row space-x-3 gap-3">
+              <TouchableOpacity
+                onPress={() => {
+                  import("react-native").then(({ Clipboard }) => {
+                    Clipboard.setString(result);
+                    Alert.alert("Success", "Plan copied to clipboard!");
+                  });
+                }}
+                className="flex-1 flex-row items-center justify-center bg-gray-50 dark:bg-gray-800 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700"
+              >
+                <Ionicons name="copy-outline" size={18} color="#4F46E5" />
+                <Text className="ml-2 font-semibold text-indigo-600 dark:text-indigo-400">
+                  Copy
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  import("react-native").then(({ Share }) => {
+                    Share.share({ message: result });
+                  });
+                }}
+                className="flex-1 flex-row items-center justify-center bg-gray-50 dark:bg-gray-800 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700"
+              >
+                <Ionicons name="share-outline" size={18} color="#4F46E5" />
+                <Text className="ml-2 font-semibold text-indigo-600 dark:text-indigo-400">
+                  Share
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       )}
     </View>

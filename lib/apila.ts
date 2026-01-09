@@ -78,3 +78,48 @@ export async function generateShortNotes(
 
   return callApilaAI({ systemPrompt, userPrompt });
 }
+
+export async function generateQuiz(
+  subject: string,
+  lesson: string,
+  language: string,
+  questionType: string,
+  questionCount: number,
+  difficulty: string
+): Promise<string> {
+  const systemPrompt = `You are an expert quiz creator. Generate a quiz based on the user's requirements. 
+  Return the quiz as a valid JSON object.
+  
+  Supported Question Types: MCQ, Short Answers, Essays, Fill Blanks, Mixed, Multiple Choices.
+  
+  JSON Structure:
+  {
+    "title": "Quiz Title",
+    "questions": [
+      {
+        "id": 1,
+        "type": "MCQ", // or "Short Answers", "Essays", "Fill Blanks", "Multiple Choices"
+        "question": "Question text?",
+        "options": ["Option A", "Option B", "Option C", "Option D"], // Empty for Short Answers/Essays
+        "correctAnswer": 0, // Index for MCQ, or the answer string/array for others
+        "explanation": "Detailed explanation of the answer"
+      }
+    ]
+  }
+
+  Guidelines:
+  - For "Short Answers", "Essays", "Fill Blanks", leave "options" as an empty array [] and "correctAnswer" as a string or list of key points.
+  - For "Multiple Choices" (Multiple Select), "correctAnswer" should be an array of indices.
+  - For "Mixed", vary the types within the questions array.
+  - Use ${language} for all content.
+  - Ensure the difficulty is ${difficulty}.
+  - Return ONLY the JSON object.`;
+
+  const userPrompt = `Generate a ${difficulty} difficulty quiz for:
+  Subject: ${subject}
+  Lesson: ${lesson}
+  Language: ${language}
+  Question Type: ${questionType} (Include ${questionCount} questions total)`;
+
+  return callApilaAI({ systemPrompt, userPrompt });
+}
