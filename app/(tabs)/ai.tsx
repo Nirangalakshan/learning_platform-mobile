@@ -49,7 +49,7 @@ export default function AIScreen() {
               <Text
                 className={`font-semibold ${
                   mode === "plan"
-                    ? "text-indigo-600 dark:text-indigo-400"
+                    ? "text-purple-600 dark:text-indigo-400"
                     : "text-gray-500 dark:text-gray-400"
                 }`}
               >
@@ -65,7 +65,7 @@ export default function AIScreen() {
               <Text
                 className={`font-semibold ${
                   mode === "note"
-                    ? "text-indigo-600 dark:text-indigo-400"
+                    ? "text-purple-600 dark:text-indigo-400"
                     : "text-gray-500 dark:text-gray-400"
                 }`}
               >

@@ -74,13 +74,6 @@ export default function TabLayout() {
             backgroundColor: "#ffffff",
             borderRadius: 15,
             height: 60,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 10,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 10,
             borderTopWidth: 0,
           },
           android: {
@@ -148,10 +141,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="practicals"
         options={{
-          title: "Practicals",
+          title: "Visuals",
           tabBarIcon: ({ color, focused }) => (
             <AnimatedIcon
-              name={focused ? "flask" : "flask-outline"}
+              name={focused ? "git-network" : "git-network-outline"}
               color={color}
               focused={focused}
             />

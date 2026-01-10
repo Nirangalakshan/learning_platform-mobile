@@ -559,8 +559,11 @@ export default function QuizzesScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-black">
-      <ScrollView className="flex-1 p-4" showsVerticalScrollIndicator={false}>
+    <SafeAreaView className="flex-1 bg-white dark:bg-black ">
+      <ScrollView
+        className="flex-1 px-6 py-4"
+        showsVerticalScrollIndicator={false}
+      >
         <View className="pb-8">
           <Text className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             AI Quiz Generator
@@ -655,7 +658,7 @@ export default function QuizzesScreen() {
           <TouchableOpacity
             onPress={handleGenerateQuiz}
             disabled={loading}
-            className={`bg-indigo-600 rounded-2xl py-4 items-center active:opacity-90 mb-20 ${
+            className={`bg-purple-600 rounded-2xl py-4 items-center active:opacity-90 mb-20 ${
               loading ? "opacity-70" : ""
             }`}
           >

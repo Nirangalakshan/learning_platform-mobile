@@ -109,7 +109,7 @@ export default function ShortNotesGenerator() {
       <TouchableOpacity
         onPress={generateNotes}
         disabled={loading}
-        className="bg-indigo-600 rounded-xl py-4 items-center active:opacity-90 mt-4"
+        className="bg-purple-600 rounded-xl py-4 items-center active:opacity-90 mt-4"
       >
         {loading ? (
           <ActivityIndicator color="white" />

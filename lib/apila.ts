@@ -131,3 +131,36 @@ export async function quickChat(message: string): Promise<string> {
 
   return callApilaAI({ systemPrompt, userPrompt });
 }
+
+export async function generateMindmap(
+  subject: string,
+  topic: string,
+  language: string
+): Promise<string> {
+  const systemPrompt =
+    "You are an expert at creating mindmaps. Generate a mindmap in Mermaid.js syntax. \n\n" +
+    "Rules:\n" +
+    "1. Start with the 'mindmap' keyword.\n" +
+    "2. Use indentation to show hierarchy.\n" +
+    "3. Return ONLY the code block. No explanations, no markdown intro, no outro.\n" +
+    "4. Use valid Mermaid syntax.";
+  const userPrompt = `Create a structured mindmap for the topic '${topic}' in the subject '${subject}'. Language: ${language}.`;
+
+  return callApilaAI({ systemPrompt, userPrompt });
+}
+
+export async function generateFlowchart(
+  subject: string,
+  process: string,
+  language: string
+): Promise<string> {
+  const systemPrompt =
+    "You are an expert at creating flowcharts. Generate a flowchart in Mermaid.js syntax. \n\n" +
+    "Rules:\n" +
+    "1. Start with 'graph TD' or 'flowchart TD'.\n" +
+    "2. Return ONLY the code block. No explanations.\n" +
+    "3. Use valid Mermaid syntax.";
+  const userPrompt = `Create a clear flowchart for explaining '${process}' in the subject '${subject}'. Language: ${language}.`;
+
+  return callApilaAI({ systemPrompt, userPrompt });
+}
