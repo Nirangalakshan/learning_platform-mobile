@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 
+import { supabase } from "@/lib/supabase";
 import { generateStudyPlan } from "../lib/apila";
 
 export default function StudyPlanGenerator() {
@@ -30,6 +31,30 @@ export default function StudyPlanGenerator() {
     try {
       const response = await generateStudyPlan(subject, topic, duration);
       setResult(response);
+
+      // Save plan to database
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const planData = {
+          user_id: user.id,
+          subject,
+          topics: topic,
+          total_weeks: duration,
+          study_plan: response,
+          resources: [], // Fixes not-null constraint error
+        };
+
+        const { error: dbError } = await supabase
+          .from("user_study_plans")
+          .insert([planData]);
+
+        if (dbError) {
+          console.error("Database save error:", dbError);
+        }
+      }
     } catch (error: any) {
       console.error(error);
       Alert.alert(

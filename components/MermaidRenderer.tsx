@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Base64 } from "js-base64";
+import { encode as base64Encode } from "js-base64";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -12,6 +12,7 @@ import {
   useColorScheme,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import { WebView } from "react-native-webview";
 
 interface MermaidRendererProps {
@@ -35,7 +36,7 @@ export default function MermaidRenderer({ mermaidCode }: MermaidRendererProps) {
   const code = cleanCode(mermaidCode);
 
   // Use js-base64 for safer encoding
-  const base64Code = Base64.encode(code);
+  const base64Code = base64Encode(code);
   const imageUrl = `https://mermaid.ink/img/${base64Code}`;
 
   const html = `

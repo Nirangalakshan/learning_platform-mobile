@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { generateQuiz } from "../../lib/apila";
+import { supabase } from "../../lib/supabase";
 
 const { width } = Dimensions.get("window");
 
@@ -132,7 +133,7 @@ export default function QuizzesScreen() {
   const [loading, setLoading] = useState(false);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
 
-  const languages = ["English", "Sinhala", "Tamil", "French", "German"];
+  const languages = ["English", "Sinhala"];
   const difficulties = ["Easy", "Medium", "Hard", "Expert"];
   const questionTypes = [
     "MCQ",
@@ -177,6 +178,29 @@ export default function QuizzesScreen() {
 
       const parsedQuiz: Quiz = JSON.parse(jsonString);
       setQuiz(parsedQuiz);
+
+      // Save quiz to database
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const quizData = {
+          user_id: user.id,
+          subject,
+          lessons: [lesson],
+          is_all_syllabus: false,
+          language,
+          difficulty,
+          question_type: questionType,
+          question_count: questionCount,
+          questions: parsedQuiz,
+        };
+        const { error } = await supabase.from("ai_quizzes").insert([quizData]);
+        if (error) {
+          console.error("Database save error:", error);
+        }
+      }
     } catch (error: any) {
       console.error(error);
       Alert.alert(
@@ -565,7 +589,7 @@ export default function QuizzesScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View className="pb-8">
-          <Text className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <Text className="font-semibold text-3xl text-gray-900 dark:text-white mb-2">
             AI Quiz Generator
           </Text>
           <Text className="text-gray-500 dark:text-gray-400">

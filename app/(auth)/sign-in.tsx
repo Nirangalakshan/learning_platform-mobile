@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -50,8 +51,11 @@ export default function SignIn() {
         className="px-6"
       >
         <View className="items-center mb-10">
-          <View className="h-20 w-20 bg-indigo-600 rounded-2xl items-center justify-center mb-4">
-            <Ionicons name="school" size={40} color="white" />
+          <View className="">
+            <Image
+              source={require("../../assets/images/learnlk_logo.png")}
+              className="h-28 w-28"
+            />
           </View>
           <Text className="text-3xl font-bold text-gray-900 dark:text-white text-center">
             Welcome Back

@@ -63,13 +63,14 @@ export default function TabLayout() {
           fontSize: 10,
           fontWeight: "600",
           marginBottom: 5,
+          fontFamily: "Poppins_600SemiBold",
         },
         tabBarStyle: Platform.select({
           ios: {
             position: "absolute",
             bottom: 25,
-            left: 20,
-            right: 20,
+            left: 0,
+            right: 0,
             elevation: 0,
             backgroundColor: "#ffffff",
             borderRadius: 15,
@@ -80,18 +81,16 @@ export default function TabLayout() {
             paddingTop: 5,
             position: "absolute",
 
-            bottom: 30,
-            marginHorizontal: 20,
+            bottom: 0,
+            marginHorizontal: 0,
             elevation: 0,
             backgroundColor: "#ffffff",
-            borderRadius: 30,
-            height: 55,
-            borderTopWidth: 1,
-            borderTopColor: "#e5e7eb",
-            borderBottomWidth: 1,
-            borderBottomColor: "#e5e7eb",
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
+            borderRadius: 0,
+            height: 88,
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+            borderLeftWidth: 0,
+            borderRightWidth: 0,
             borderLeftColor: "#e5e7eb",
             borderRightColor: "#e5e7eb",
           },
@@ -102,7 +101,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Dashboard",
+          title: "Home",
           tabBarIcon: ({ color, focused }) => (
             <AnimatedIcon
               name={focused ? "home" : "home-outline"}
@@ -115,7 +114,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ai"
         options={{
-          title: "AI Assistant",
+          title: "AI",
           tabBarIcon: ({ color, focused }) => (
             <AnimatedIcon
               name={focused ? "chatbubbles" : "chatbubbles-outline"}
@@ -132,6 +131,19 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <AnimatedIcon
               name={focused ? "document-text" : "document-text-outline"}
+              color={color}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="history"
+        options={{
+          title: "History",
+          tabBarIcon: ({ color, focused }) => (
+            <AnimatedIcon
+              name={focused ? "time" : "time-outline"}
               color={color}
               focused={focused}
             />

@@ -9,6 +9,8 @@ import {
   View,
 } from "react-native";
 
+import { supabase } from "@/lib/supabase";
+
 import { generateShortNotes } from "../lib/apila";
 
 export default function ShortNotesGenerator() {
@@ -30,6 +32,24 @@ export default function ShortNotesGenerator() {
     try {
       const response = await generateShortNotes(subject, topic, language);
       setResult(response);
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        const planData = {
+          user_id: user?.id,
+          subject,
+          topic,
+          note: response,
+        };
+        const { error } = await supabase
+          .from("user_short_notes")
+          .insert([planData]);
+        if (error) {
+          console.error(error);
+          Alert.alert("Error", "Failed to save notes. Please try again.");
+        }
+      }
     } catch (error: any) {
       console.error(error);
       Alert.alert(
